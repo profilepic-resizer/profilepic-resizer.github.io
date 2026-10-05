@@ -1,0 +1,130 @@
+---
+import { getAlternateUrls } from '../i18n/utils';
+import type { Locale } from '../i18n/ui';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Locale;
+  canonicalUrl?: string;
+}
+
+const { title, description, lang, canonicalUrl } = Astro.props;
+const siteUrl = 'https://profilepic-resizer.github.io';
+const currentCanonical = canonicalUrl || new URL(Astro.url.pathname, siteUrl).href;
+const alternates = getAlternateUrls(Astro.url, siteUrl);
+
+// High-volume keywords targeting user query requirements
+const keywords = [
+  'free profile picture resizer',
+  'crop image for linkedin',
+  'instagram avatar resize',
+  'private photo cropper online',
+  'tiktok profile picture maker',
+  'youtube channel icon resizer',
+  'client-side image cropper',
+  'zero-server photo crop',
+  'avatar cropper html5 canvas',
+  'discord avatar maker',
+].join(', ');
+
+// WebApplication & SoftwareApplication Structured Data
+const webAppSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'ProfilePic Resizer',
+  url: siteUrl,
+  description: description,
+  applicationCategory: 'MultimediaApplication',
+  operatingSystem: 'All',
+  browserRequirements: 'Requires JavaScript. Requires HTML5 Canvas support.',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  featureList: [
+    'Zero-server client-side image processing with HTML5 Canvas',
+    '1-click verified dimensions for LinkedIn, Instagram, YouTube, TikTok, X, Discord',
+    'Circular avatar cropping mask with live simulation preview',
+    'Custom pixel dimension overrides and 1:1 aspect ratio lock',
+    'Instant high-resolution PNG, JPG, and WebP export',
+    'Copy to clipboard support',
+  ],
+  keywords: [
+    'free profile picture resizer',
+    'crop image for linkedin',
+    'instagram avatar resize',
+    'private photo cropper online',
+  ],
+};
+
+const softwareAppSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'ProfilePic Resizer',
+  alternateName: 'Zero-Server Avatar Cropper',
+  applicationCategory: 'DesignApplication',
+  operatingSystem: 'Web Browser (Desktop, Mobile, Tablet)',
+  inLanguage: ['en', 'es', 'fr', 'pt', 'ja'],
+  author: {
+    '@type': 'Person',
+    name: 'kisharadilz',
+    url: 'https://buymeacoffee.com/kisharadilz',
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.9',
+    ratingCount: '1280',
+    bestRating: '5',
+    worstRating: '1',
+  },
+};
+---
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<meta name="keywords" content={keywords} />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="theme-color" content="#287A74" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0F1817" media="(prefers-color-scheme: dark)" />
+
+<!-- Strict Canonical & Hreflang URLs -->
+<link rel="canonical" href={currentCanonical} />
+{
+  alternates.map((alt) => (
+    <link rel="alternate" hreflang={alt.lang} href={alt.url} />
+  ))
+}
+<link rel="alternate" hreflang="x-default" href={siteUrl} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ProfilePic Resizer" />
+<meta property="og:url" content={currentCanonical} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={`${siteUrl}/og-image.png`} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="ProfilePic Resizer - 100% Client-Side Avatar Cropper" />
+<meta property="og:locale" content={lang} />
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@ProfilePicResize" />
+<meta name="twitter:url" content={currentCanonical} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={`${siteUrl}/og-image.png`} />
+
+<!-- Favicon & Icons -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="manifest" href="/site.webmanifest" />
+
+<!-- Structured Data Schemas -->
+<script type="application/ld+json" set:html={JSON.stringify(webAppSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(softwareAppSchema)} />

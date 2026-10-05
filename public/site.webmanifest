@@ -1,0 +1,16 @@
+{
+  "name": "ProfilePic Resizer",
+  "short_name": "ProfilePic",
+  "description": "Privacy-first client-side avatar resizer & cropper",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FBFDFD",
+  "theme_color": "#287A74",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

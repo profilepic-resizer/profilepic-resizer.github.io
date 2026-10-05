@@ -1,0 +1,394 @@
+---
+import { useTranslations } from '../i18n/utils';
+import type { Locale } from '../i18n/ui';
+import { CanvasCropper } from './cropper/CanvasCropper';
+import { PLATFORM_PRESETS } from './cropper/presetsData';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// FAQ Schema for rich search results
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: t('faq.q1'),
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: t('faq.a1'),
+      },
+    },
+    {
+      '@type': 'Question',
+      name: t('faq.q2'),
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: t('faq.a2'),
+      },
+    },
+    {
+      '@type': 'Question',
+      name: t('faq.q3'),
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: t('faq.a3'),
+      },
+    },
+    {
+      '@type': 'Question',
+      name: t('faq.q4'),
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: t('faq.a4'),
+      },
+    },
+    {
+      '@type': 'Question',
+      name: t('faq.q5'),
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: t('faq.a5'),
+      },
+    },
+  ],
+};
+
+const labels = {
+  dropzoneTitle: t('cropper.dropzone.title'),
+  dropzoneSubtitle: t('cropper.dropzone.subtitle'),
+  dropzonePasteHint: t('cropper.dropzone.pasteHint'),
+  dropzoneFormats: t('cropper.dropzone.formats'),
+  dropzoneSample: t('cropper.dropzone.sample'),
+  changePhoto: t('cropper.changePhoto'),
+  zoom: t('cropper.zoom'),
+  rotate: t('cropper.rotate'),
+  flipH: t('cropper.flipH'),
+  flipV: t('cropper.flipV'),
+  maskCircle: t('cropper.maskCircle'),
+  maskSquare: t('cropper.maskSquare'),
+  grid: t('cropper.grid'),
+  reset: t('cropper.reset'),
+  center: t('cropper.center'),
+  presetsTitle: t('presets.title'),
+  presetsSubtitle: t('presets.subtitle'),
+  presetsCustom: t('presets.custom'),
+  presetsWidth: t('presets.width'),
+  presetsHeight: t('presets.height'),
+  presetsLockRatio: t('presets.lockRatio'),
+  presetsApply: t('presets.apply'),
+  exportTitle: t('export.title'),
+  exportFormat: t('export.format'),
+  exportQuality: t('export.quality'),
+  exportDimension: t('export.dimension'),
+  exportEstimatedSize: t('export.estimatedSize'),
+  exportDownload: t('export.download'),
+  exportCopy: t('export.copy'),
+  exportCopied: t('export.copied'),
+  exportCopyError: t('export.copyError'),
+  exportPreviewTitle: t('export.previewTitle'),
+  exportPreviewCircle: t('export.previewCircle'),
+  exportPreviewSquare: t('export.previewSquare'),
+  exportSuccess: t('export.success'),
+};
+---
+
+<!-- Inject FAQ Schema -->
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+<div class="relative overflow-hidden">
+  
+  <!-- Subtle decorative ambient background glows using palette -->
+  <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-[#AEEED3]/30 via-[#FFF8B0]/20 to-transparent blur-3xl pointer-events-none -z-10" />
+
+  <!-- Hero Section -->
+  <section class="pt-8 pb-6 px-4 sm:px-6 lg:px-8 text-center max-w-4xl mx-auto">
+    <!-- Privacy Badge -->
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-pale-yellow text-deep-teal border border-[#287A74]/20 text-xs font-bold shadow-sm mb-4">
+      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span>{t('hero.badge')}</span>
+    </div>
+
+    <!-- Main Title -->
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.15]">
+      {t('hero.h1')}{' '}
+      <span class="bg-gradient-to-r from-deep-teal via-muted-teal to-deep-teal bg-clip-text text-transparent underline decoration-[#AEEED3] decoration-4 underline-offset-4">
+        {t('hero.h1Highlight')}
+      </span>
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="mt-3.5 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
+      {t('hero.subtitle')}
+    </p>
+  </section>
+
+  <!-- Interactive Cropper Workspace Island -->
+  <section class="px-3 sm:px-6 lg:px-8 pb-16">
+    <CanvasCropper client:load labels={labels} initialLocale={lang} />
+  </section>
+
+  <!-- Why Zero-Server Privacy Matters Section -->
+  <section class="py-14 bg-slate-50/70 dark:bg-[#111c1b] border-y border-[#55A9A0]/20 dark:border-[#233735]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          {t('why.title')}
+        </h2>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+          {t('why.subtitle')}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Feature 1 -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-[#162322] border border-[#55A9A0]/25 dark:border-[#233735] shadow-soft hover:shadow-md transition-shadow">
+          <div class="w-10 h-10 rounded-xl bg-deep-teal text-white flex items-center justify-center mb-3.5 shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5 text-mint-green">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+          </div>
+          <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">
+            {t('why.f1.title')}
+          </h3>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            {t('why.f1.desc')}
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-[#162322] border border-[#55A9A0]/25 dark:border-[#233735] shadow-soft hover:shadow-md transition-shadow">
+          <div class="w-10 h-10 rounded-xl bg-muted-teal text-white flex items-center justify-center mb-3.5 shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5 text-pale-yellow">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <polyline points="21 15 16 10 5 21" />
+            </svg>
+          </div>
+          <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">
+            {t('why.f2.title')}
+          </h3>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            {t('why.f2.desc')}
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-[#162322] border border-[#55A9A0]/25 dark:border-[#233735] shadow-soft hover:shadow-md transition-shadow">
+          <div class="w-10 h-10 rounded-xl bg-deep-teal text-white flex items-center justify-center mb-3.5 shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5 text-mint-green">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+          </div>
+          <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">
+            {t('why.f3.title')}
+          </h3>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            {t('why.f3.desc')}
+          </p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-[#162322] border border-[#55A9A0]/25 dark:border-[#233735] shadow-soft hover:shadow-md transition-shadow">
+          <div class="w-10 h-10 rounded-xl bg-pale-yellow text-slate-900 flex items-center justify-center mb-3.5 shadow-sm border border-[#e5d774]">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5 text-deep-teal">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+            </svg>
+          </div>
+          <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">
+            {t('why.f4.title')}
+          </h3>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            {t('why.f4.desc')}
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- How It Works (3 Steps) -->
+  <section class="py-16 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+        {t('how.title')}
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Step 1 -->
+      <div class="relative p-6 rounded-2xl bg-white dark:bg-[#162322] border border-slate-200 dark:border-[#233735] shadow-soft">
+        <div class="inline-block px-3 py-1 rounded-full bg-[#AEEED3]/40 text-deep-teal dark:text-mint-green text-xs font-bold mb-3">
+          Step 01
+        </div>
+        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">
+          {t('how.step1.title')}
+        </h3>
+        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+          {t('how.step1.desc')}
+        </p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="relative p-6 rounded-2xl bg-white dark:bg-[#162322] border border-slate-200 dark:border-[#233735] shadow-soft">
+        <div class="inline-block px-3 py-1 rounded-full bg-pale-yellow text-slate-900 text-xs font-bold mb-3">
+          Step 02
+        </div>
+        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">
+          {t('how.step2.title')}
+        </h3>
+        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+          {t('how.step2.desc')}
+        </p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="relative p-6 rounded-2xl bg-white dark:bg-[#162322] border border-slate-200 dark:border-[#233735] shadow-soft">
+        <div class="inline-block px-3 py-1 rounded-full bg-[#AEEED3]/40 text-deep-teal dark:text-mint-green text-xs font-bold mb-3">
+          Step 03
+        </div>
+        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">
+          {t('how.step3.title')}
+        </h3>
+        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+          {t('how.step3.desc')}
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Social Media Platform Specs Table (SEO Reference) -->
+  <section class="py-14 bg-slate-50/70 dark:bg-[#111c1b] border-y border-[#55A9A0]/20 dark:border-[#233735]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-8">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          {t('specs.title')}
+        </h2>
+        <p class="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+          {t('specs.subtitle')}
+        </p>
+      </div>
+
+      <!-- Responsive Table Container -->
+      <div class="overflow-x-auto bg-white dark:bg-[#162322] border border-[#55A9A0]/25 dark:border-[#233735] rounded-2xl shadow-soft">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-100/75 dark:bg-slate-800/80 border-b border-slate-200 dark:border-[#233735] text-slate-700 dark:text-slate-200 font-bold uppercase tracking-wider text-[11px]">
+            <tr>
+              <th class="py-3 px-4">{t('specs.platform')}</th>
+              <th class="py-3 px-4">{t('specs.recSize')}</th>
+              <th class="py-3 px-4">{t('specs.aspect')}</th>
+              <th class="py-3 px-4">{t('specs.shape')}</th>
+              <th class="py-3 px-4">{t('specs.maxSize')}</th>
+              <th class="py-3 px-4">{t('specs.formats')}</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 dark:divide-[#233735]">
+            {
+              PLATFORM_PRESETS.map((p) => (
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                  <td class="py-3 px-4 font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full" style={`background-color: ${p.badgeColor}`} />
+                    <span>{p.name}</span>
+                  </td>
+                  <td class="py-3 px-4 font-mono font-bold text-deep-teal dark:text-mint-green">
+                    {p.width} × {p.height} px
+                  </td>
+                  <td class="py-3 px-4 font-mono text-slate-600 dark:text-slate-300">1:1</td>
+                  <td class="py-3 px-4 capitalize text-slate-600 dark:text-slate-300">
+                    <span class="inline-flex items-center gap-1">
+                      <span class={`w-2 h-2 ${p.defaultMask === 'circle' ? 'rounded-full' : 'rounded-xs'} bg-muted-teal`} />
+                      {p.defaultMask}
+                    </span>
+                  </td>
+                  <td class="py-3 px-4 font-mono text-slate-600 dark:text-slate-300">{p.maxFileSize}</td>
+                  <td class="py-3 px-4 text-slate-600 dark:text-slate-300">{p.recommendedFormats.join(', ')}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Comprehensive FAQ Section -->
+  <section class="py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-10">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+        {t('faq.title')}
+      </h2>
+    </div>
+
+    <div class="space-y-4">
+      
+      <!-- FAQ 1 -->
+      <div class="p-5 rounded-2xl bg-white dark:bg-[#162322] border border-slate-200 dark:border-[#233735] shadow-soft">
+        <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-2 flex items-start gap-2">
+          <span class="text-deep-teal dark:text-mint-green font-mono">Q1:</span>
+          <span>{t('faq.q1')}</span>
+        </h3>
+        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed pl-6">
+          {t('faq.a1')}
+        </p>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="p-5 rounded-2xl bg-white dark:bg-[#162322] border border-slate-200 dark:border-[#233735] shadow-soft">
+        <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-2 flex items-start gap-2">
+          <span class="text-deep-teal dark:text-mint-green font-mono">Q2:</span>
+          <span>{t('faq.q2')}</span>
+        </h3>
+        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed pl-6">
+          {t('faq.a2')}
+        </p>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="p-5 rounded-2xl bg-white dark:bg-[#162322] border border-slate-200 dark:border-[#233735] shadow-soft">
+        <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-2 flex items-start gap-2">
+          <span class="text-deep-teal dark:text-mint-green font-mono">Q3:</span>
+          <span>{t('faq.q3')}</span>
+        </h3>
+        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed pl-6">
+          {t('faq.a3')}
+        </p>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="p-5 rounded-2xl bg-white dark:bg-[#162322] border border-slate-200 dark:border-[#233735] shadow-soft">
+        <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-2 flex items-start gap-2">
+          <span class="text-deep-teal dark:text-mint-green font-mono">Q4:</span>
+          <span>{t('faq.q4')}</span>
+        </h3>
+        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed pl-6">
+          {t('faq.a4')}
+        </p>
+      </div>
+
+      <!-- FAQ 5 -->
+      <div class="p-5 rounded-2xl bg-white dark:bg-[#162322] border border-slate-200 dark:border-[#233735] shadow-soft">
+        <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-2 flex items-start gap-2">
+          <span class="text-deep-teal dark:text-mint-green font-mono">Q5:</span>
+          <span>{t('faq.q5')}</span>
+        </h3>
+        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed pl-6">
+          {t('faq.a5')}
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+</div>

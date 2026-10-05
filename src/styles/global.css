@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-deep-teal: #287A74;
+    --color-muted-teal: #55A9A0;
+    --color-mint-green: #AEEED3;
+    --color-pale-yellow: #FFF8B0;
+  }
+
+  body {
+    @apply bg-[#FAFCFC] text-slate-800 antialiased selection:bg-mint-green selection:text-deep-teal;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  .dark body {
+    @apply bg-[#0D1615] text-slate-100 selection:bg-deep-teal selection:text-mint-green;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(85, 169, 160, 0.4);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(40, 122, 116, 0.7);
+}
+
+/* Canvas checkerboard pattern for transparent images */
+.checkerboard-pattern {
+  background-image: 
+    linear-gradient(45deg, #eef2f2 25%, transparent 25%), 
+    linear-gradient(-45deg, #eef2f2 25%, transparent 25%), 
+    linear-gradient(45deg, transparent 75%, #eef2f2 75%), 
+    linear-gradient(-45deg, transparent 75%, #eef2f2 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+}
+
+.dark .checkerboard-pattern {
+  background-image: 
+    linear-gradient(45deg, #182625 25%, transparent 25%), 
+    linear-gradient(-45deg, #182625 25%, transparent 25%), 
+    linear-gradient(45deg, transparent 75%, #182625 75%), 
+    linear-gradient(-45deg, transparent 75%, #182625 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+}

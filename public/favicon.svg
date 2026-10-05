@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#287A74" />
+      <stop offset="100%" stop-color="#55A9A0" />
+    </linearGradient>
+  </defs>
+  <!-- Background with smooth rounded corner -->
+  <rect width="128" height="128" rx="28" fill="url(#bgGrad)" />
+  
+  <!-- Cropping brackets -->
+  <path d="M 28 50 L 28 28 L 50 28" fill="none" stroke="#AEEED3" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M 100 78 L 100 100 L 78 100" fill="none" stroke="#AEEED3" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  
+  <!-- Center Avatar Circle -->
+  <circle cx="64" cy="64" r="28" fill="#FFF8B0" />
+  <circle cx="64" cy="56" r="11" fill="#287A74" />
+  <path d="M 44 84 C 44 74 53 71 64 71 C 75 71 84 74 84 84 Z" fill="#287A74" />
+</svg>

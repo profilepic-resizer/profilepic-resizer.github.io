@@ -1,0 +1,63 @@
+---
+import '../styles/global.css';
+import SeoHead from '../components/SeoHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { type Locale, defaultLocale } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: Locale;
+}
+
+const { lang = defaultLocale } = Astro.props;
+const t = useTranslations(lang);
+
+const title = Astro.props.title || t('site.title');
+const description = Astro.props.description || t('site.description');
+---
+
+<!doctype html>
+<html lang={lang} class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DYSQ6ZK7ET"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-DYSQ6ZK7ET');
+    </script>
+
+    <SeoHead title={title} description={description} lang={lang} />
+    
+    <!-- Script to prevent dark mode flicker -->
+    <script is:inline>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col font-sans bg-[#FBFDFD] dark:bg-[#0D1615] text-slate-800 dark:text-slate-100 transition-colors duration-200">
+    <Header lang={lang} />
+    <main class="flex-grow">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>
