@@ -13,8 +13,8 @@ export const ui = {
   en: {
     // Header & Meta
     'site.name': 'ProfilePic Resizer',
-    'site.title': 'ProfilePic Resizer | 100% Client-Side Avatar Cropper',
-    'site.description': 'Privacy-first, zero-server avatar resizer & cropper. Instantly crop and export perfect profile pictures for LinkedIn, Instagram, YouTube, TikTok, and Discord locally in your browser.',
+    'site.title': 'ProfilePic Resizer | Free Online Profile Picture Cropper',
+    'site.description': 'Free, private profile picture resizer and avatar cropper for LinkedIn, Instagram, TikTok, and YouTube. 100% client-side HTML5 Canvas with zero server uploads.',
     'nav.support': 'Support Developer',
     'nav.supportShort': 'Support',
     'nav.theme': 'Toggle theme',

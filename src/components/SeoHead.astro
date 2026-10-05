@@ -11,10 +11,10 @@ interface Props {
 
 const { title, description, lang, canonicalUrl } = Astro.props;
 const siteUrl = 'https://profilepic-resizer.github.io';
-const currentCanonical = canonicalUrl || new URL(Astro.url.pathname, siteUrl).href;
+const currentCanonical = canonicalUrl || (Astro.url.pathname === '/' ? `${siteUrl}/` : new URL(Astro.url.pathname, siteUrl).href);
 const alternates = getAlternateUrls(Astro.url, siteUrl);
 
-// High-volume keywords targeting user query requirements
+// Targeted high-intent search keywords
 const keywords = [
   'free profile picture resizer',
   'crop image for linkedin',
@@ -26,69 +26,92 @@ const keywords = [
   'zero-server photo crop',
   'avatar cropper html5 canvas',
   'discord avatar maker',
+  'circular profile picture cropper',
+  'social media avatar dimensions 2026',
 ].join(', ');
 
-// WebApplication & SoftwareApplication Structured Data
+// Schema 1: WebApplication (100% compliant with Google Search Guidelines - Zero fake reviews)
 const webAppSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
   name: 'ProfilePic Resizer',
+  alternateName: 'Zero-Server Client-Side Avatar Cropper',
   url: siteUrl,
   description: description,
   applicationCategory: 'MultimediaApplication',
-  operatingSystem: 'All',
+  applicationSubCategory: 'PhotoEditorApplication',
+  operatingSystem: 'All (Web Browser on Desktop, Tablet, Mobile)',
   browserRequirements: 'Requires JavaScript. Requires HTML5 Canvas support.',
   offers: {
     '@type': 'Offer',
     price: '0',
     priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
   },
   featureList: [
-    'Zero-server client-side image processing with HTML5 Canvas',
-    '1-click verified dimensions for LinkedIn, Instagram, YouTube, TikTok, X, Discord',
-    'Circular avatar cropping mask with live simulation preview',
+    'Zero-server client-side image processing with native HTML5 Canvas',
+    '1-Click verified dimensions for LinkedIn, Instagram, YouTube, TikTok, X, Discord',
+    'Circular avatar cropping mask with live social simulation previews',
     'Custom pixel dimension overrides and 1:1 aspect ratio lock',
-    'Instant high-resolution PNG, JPG, and WebP export',
-    'Copy to clipboard support',
+    'High-DPI lossless PNG, JPG (custom quality), and WebP export',
+    'Instant copy to clipboard support',
   ],
-  keywords: [
-    'free profile picture resizer',
-    'crop image for linkedin',
-    'instagram avatar resize',
-    'private photo cropper online',
-  ],
+  creator: {
+    '@type': 'Organization',
+    name: 'ProfilePic Resizer',
+    url: siteUrl,
+  },
 };
 
-const softwareAppSchema = {
+// Schema 2: WebSite with Search Potential
+const webSiteSchema = {
   '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
+  '@type': 'WebSite',
   name: 'ProfilePic Resizer',
-  alternateName: 'Zero-Server Avatar Cropper',
-  applicationCategory: 'DesignApplication',
-  operatingSystem: 'Web Browser (Desktop, Mobile, Tablet)',
+  url: siteUrl,
   inLanguage: ['en', 'es', 'fr', 'pt', 'ja'],
-  author: {
-    '@type': 'Person',
-    name: 'kisharadilz',
-    url: 'https://buymeacoffee.com/kisharadilz',
-  },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.9',
-    ratingCount: '1280',
-    bestRating: '5',
-    worstRating: '1',
+  description: description,
+  publisher: {
+    '@type': 'Organization',
+    name: 'ProfilePic Resizer',
+    url: siteUrl,
+    logo: `${siteUrl}/favicon.svg`,
   },
 };
+
+// Schema 3: BreadcrumbList for Enhanced Search SERP Display
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: siteUrl,
+    },
+  ],
+};
 ---
+
+<!-- Resource Hints for Core Web Vitals (LCP / INP optimization) -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+<link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
 <meta name="keywords" content={keywords} />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="author" content="ProfilePic Resizer" />
+<meta name="publisher" content="ProfilePic Resizer" />
+<meta name="application-name" content="ProfilePic Resizer" />
+<meta name="apple-mobile-web-app-title" content="ProfilePic Resizer" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 <meta name="theme-color" content="#287A74" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#0F1817" media="(prefers-color-scheme: dark)" />
 
@@ -99,7 +122,7 @@ const softwareAppSchema = {
     <link rel="alternate" hreflang={alt.lang} href={alt.url} />
   ))
 }
-<link rel="alternate" hreflang="x-default" href={siteUrl} />
+<link rel="alternate" hreflang="x-default" href={`${siteUrl}/`} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
@@ -110,21 +133,24 @@ const softwareAppSchema = {
 <meta property="og:image" content={`${siteUrl}/og-image.png`} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="ProfilePic Resizer - 100% Client-Side Avatar Cropper" />
-<meta property="og:locale" content={lang} />
+<meta property="og:image:alt" content="ProfilePic Resizer - Free Profile Picture Cropper & Resizer" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:locale" content={lang === 'en' ? 'en_US' : lang} />
 
-<!-- Twitter / X -->
+<!-- Twitter / X Cards -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@ProfilePicResize" />
 <meta name="twitter:url" content={currentCanonical} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={`${siteUrl}/og-image.png`} />
+<meta name="twitter:image:alt" content="ProfilePic Resizer - Free Profile Picture Cropper & Resizer" />
 
-<!-- Favicon & Icons -->
+<!-- Favicon & PWA Icons -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="manifest" href="/site.webmanifest" />
 
-<!-- Structured Data Schemas -->
+<!-- Valid Google Search Console & Schema.org JSON-LD Schemas -->
 <script type="application/ld+json" set:html={JSON.stringify(webAppSchema)} />
-<script type="application/ld+json" set:html={JSON.stringify(softwareAppSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(webSiteSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
