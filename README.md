@@ -3,12 +3,12 @@
 [![Deploy to GitHub Pages](https://github.com/profilepic-resizer/profilepic-resizer.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/profilepic-resizer/profilepic-resizer.github.io/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Privacy: Zero Server](https://img.shields.io/badge/Privacy-100%25%20Zero--Server-287A74.svg)](https://profilepic-resizer.github.io)
-[![Buy Me A Coffee](https://img.shields.io/badge/Support-Buy%20Me%20A%20Coffee-FFF8B0.svg)](https://buymeacoffee.com/kisharadilz)
+[![Support on Ko-fi](https://img.shields.io/badge/Support-Ko--fi-FFF8B0.svg)](https://ko-fi.com/kishara)
 
 A privacy-first, zero-server web utility built with **Astro**, **React Islands**, and **HTML5 Canvas**. Allows creators, developers, and professionals to instantly crop, resize, and export profile pictures for various social media platforms (LinkedIn, Instagram, YouTube, TikTok, X, Discord, WhatsApp) entirely within the browser without data collection.
 
 🌐 **Live Website**: [https://profilepic-resizer.github.io](https://profilepic-resizer.github.io)  
-☕ **Support Developer**: [https://buymeacoffee.com/kisharadilz](https://buymeacoffee.com/kisharadilz)
+☕ **Support Developer**: [https://ko-fi.com/kishara](https://ko-fi.com/kishara)
 
 ---
 

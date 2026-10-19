@@ -114,7 +114,7 @@ export const ui = {
     
     // Footer
     'footer.privacyNote': 'Built with privacy in mind. Zero analytics, zero image tracking, 100% client-side HTML5 Canvas processing.',
-    'footer.supportBtn': 'Buy the developer a coffee',
+    'footer.supportBtn': 'Support the developer on Ko-fi',
     'footer.rights': 'All rights reserved. Free and open source tool for creators and professionals.',
   },
   
@@ -222,7 +222,7 @@ export const ui = {
     
     // Footer
     'footer.privacyNote': 'Creado con privacidad como prioridad. Cero analíticas, cero rastreo, 100% procesamiento local en HTML5 Canvas.',
-    'footer.supportBtn': 'Invita un café al desarrollador',
+    'footer.supportBtn': 'Apoyar al desarrollador en Ko-fi',
     'footer.rights': 'Todos los derechos reservados. Herramienta libre y de código abierto para creadores y profesionales.',
   },
 
@@ -330,7 +330,7 @@ export const ui = {
     
     // Footer
     'footer.privacyNote': 'Conçu avec le respect de la vie privée. Aucune analyse, aucun suivi, traitement 100% local avec HTML5 Canvas.',
-    'footer.supportBtn': 'Offrir un café au développeur',
+    'footer.supportBtn': 'Soutenir le développeur sur Ko-fi',
     'footer.rights': 'Tous droits réservés. Outil libre et gratuit pour les créateurs et professionnels.',
   },
 
@@ -438,7 +438,7 @@ export const ui = {
     
     // Footer
     'footer.privacyNote': 'Criado com foco em privacidade. Sem rastreadores, sem envio de imagens, processamento 100% local com HTML5 Canvas.',
-    'footer.supportBtn': 'Comprar um café para o desenvolvedor',
+    'footer.supportBtn': 'Apoiar o desenvolvedor no Ko-fi',
     'footer.rights': 'Todos os direitos reservados. Utilitário gratuito e aberto para criadores e profissionais.',
   },
 
@@ -546,7 +546,7 @@ export const ui = {
     
     // Footer
     'footer.privacyNote': 'プライバシー最優先設計。アクセス解析なし、トラッキングなし、HTML5 Canvasによる完全ローカル画像処理。',
-    'footer.supportBtn': '開発者にコーヒーをおごる',
+    'footer.supportBtn': 'Ko-fiで開発者をサポート',
     'footer.rights': 'All rights reserved. クリエイターとビジネスパーソンのための無料オープンソースツール。',
   },
 } as const;
